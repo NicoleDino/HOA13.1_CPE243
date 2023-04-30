@@ -1,0 +1,17 @@
+---
+
+  - hosts: all
+    become: true
+
+  - name: Block IP address
+    hosts: checkpoint
+    connection: httpapi
+
+    tasks:
+      - include_role:
+          name: acl_manager
+          tasks_from: block_ip
+        vars:
+          source_ip: 127.0.0.1
+          destination_ip: 192.268.56.112
+          ansible_neetwork_os: checkpoint
